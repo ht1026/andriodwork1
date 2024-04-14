@@ -3,6 +3,7 @@ package com.example.work1;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,9 +13,10 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private List<Essay> essayList;
-
-    public MyAdapter(List<Essay> essayList) {
+    private AdapterView.OnItemClickListener listener;
+    public MyAdapter(List<Essay> essayList, AdapterView.OnItemClickListener listener) {
         this.essayList = essayList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -30,6 +32,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.title.setText(essay.getTitle());
         holder.content.setText(essay.getContent());
         holder.time.setText(essay.getTime());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+                    int position = holder.getLayoutPosition();
+                    listener.onItemClick(null, v, position, 0);
+                }
+
+            }
+        });
     }
 
     @Override
@@ -54,6 +66,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             essayList.add(newEssay);
             notifyDataSetChanged();
         }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 
 }
