@@ -46,10 +46,14 @@ public class FirstActivity extends AppCompatActivity {
         essayList = new ArrayList<>(Arrays.asList(essay1, essay2)); // 初始化类成员变量
         myadapter = new MyAdapter(essayList, new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
-                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+            public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {//点击更新
+                Intent intent = new Intent(FirstActivity.this, ThirdActivity.class);
+                intent.putExtra("Content", essayList.get(position).getContent());
+                intent.putExtra("Title", essayList.get(position).getTitle());
                 intent.putExtra("essay", essayList.get(position));
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, REQUEST_CODE);
+                //删除原有的essay
+                essayList.remove(position);
             }
         });
         rv.setAdapter(myadapter);
@@ -80,8 +84,9 @@ public class FirstActivity extends AppCompatActivity {
             myadapter.save();
             Toast.makeText(FirstActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
         }
-        return super.onOptionsItemSelected(item);
-    }
+        return super.onOptionsItemSelected(item);//返回true表示菜单项已被处理
+    }//onOptionsItemSelected的作用是响应菜单项的点击事件，根据点击的菜单项的id来执行相应的操作
+
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -94,7 +99,8 @@ public class FirstActivity extends AppCompatActivity {
                 }
             }
         }
-    }
+    }//onActivityResult的作用是接收活动传回的数据
+
 }
 
 
