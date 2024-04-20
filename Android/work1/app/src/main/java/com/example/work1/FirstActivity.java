@@ -81,8 +81,8 @@ public class FirstActivity extends AppCompatActivity {
             Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
             startActivityForResult(intent, 1);
         } else if (itemId == R.id.delete) {
-            myadapter.save();
-            Toast.makeText(FirstActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+            //未完成
+            Toast.makeText(this, "删除", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);//返回true表示菜单项已被处理
     }//onOptionsItemSelected的作用是响应菜单项的点击事件，根据点击的菜单项的id来执行相应的操作
