@@ -19,6 +19,7 @@ public class RegiActivity extends AppCompatActivity {
     EditText password2;
     Button register;
     SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
